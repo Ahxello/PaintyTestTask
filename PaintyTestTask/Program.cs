@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using PaintyTestTask.Data.Repositories;
+using PaintyTestTask.Data;
+using PaintyTestTask.Interfaces.Repositories;
+using PaintyTestTask.Entities;
+
 namespace PaintyTestTask
 {
     public class Program
@@ -6,8 +12,13 @@ namespace PaintyTestTask
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
+            var connectionString = builder.Configuration.GetConnectionString("MSSQL");
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString));
+            builder.Services.AddTransient<IRepository<User>, Repository<User>>();
+            builder.Services.AddTransient<IRepository<Picture>, Repository<Picture>>();
+
 
             var app = builder.Build();
 

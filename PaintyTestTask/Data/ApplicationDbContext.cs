@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PaintyTestTask.Entities;
 
 namespace PaintyTestTask.Data
 {
@@ -8,5 +9,7 @@ namespace PaintyTestTask.Data
         {
             Database.EnsureCreated();
         }
+        DbSet<User> Users { get; set; }
+        DbSet<Picture> Pictures { get; set; }
     }
 }
