@@ -16,8 +16,7 @@ namespace PaintyTestTask
             var connectionString = builder.Configuration.GetConnectionString("MSSQL");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
-            builder.Services.AddTransient<IRepository<User>, Repository<User>>();
-            builder.Services.AddTransient<IRepository<Picture>, Repository<Picture>>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 
             var app = builder.Build();

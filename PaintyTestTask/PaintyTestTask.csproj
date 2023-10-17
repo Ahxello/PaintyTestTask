@@ -23,8 +23,4 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PaintyTestTask.API\PaintyTestTask.API.csproj" />
-  </ItemGroup>
-
 </Project>

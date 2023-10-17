@@ -9,6 +9,7 @@ namespace PaintyTestTask.Data.Repositories
         private readonly ApplicationDbContext _db;
         protected DbSet<T> Set { get; }
         protected virtual IQueryable<T> Items => Set;
+        public bool AutoSaveChanges { get; set; }
 
         public Repository(ApplicationDbContext db)
         {
@@ -19,7 +20,8 @@ namespace PaintyTestTask.Data.Repositories
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
             await _db.AddAsync(item, Cancel).ConfigureAwait(false);
-            await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
+            if (AutoSaveChanges)
+                await SaveChanges(Cancel).ConfigureAwait(false);
             return item;
 
         }
@@ -30,7 +32,8 @@ namespace PaintyTestTask.Data.Repositories
             if (!await ExistId(item.Id, Cancel))
                 return null;
             _db.Remove(item);
-            await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
+            if (AutoSaveChanges)
+                await SaveChanges(Cancel).ConfigureAwait(false);
             return item;
         }
 
@@ -61,7 +64,11 @@ namespace PaintyTestTask.Data.Repositories
         {
             if (Count <= 0 )
                 return Enumerable.Empty<T>();
-            var query = Items;
+            IQueryable<T> query = Items switch
+            {
+                IOrderedQueryable<T> ordered_query => ordered_query,
+                { } q => q.OrderBy(i => i.Id)
+            };
             if (Skip > 0 )
                 query = query.Skip(Skip);
             return await query.Take(Count).ToArrayAsync(Cancel).ConfigureAwait(false);
@@ -112,9 +119,14 @@ namespace PaintyTestTask.Data.Repositories
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
             _db.Update(item);
-            await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
+            if (AutoSaveChanges)
+                await SaveChanges(Cancel).ConfigureAwait(false);
             return item;
 
+        }
+        public async Task<int> SaveChanges(CancellationToken Cancel = default)
+        {
+            return await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }
     }
 }
