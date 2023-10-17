@@ -3,7 +3,7 @@
     public interface IRepository<T> where T : IEntity
     {
         //Проверяет есть ли сущность с указанным Id
-        Task<bool> ExistId(int Id, CancellationToken Cancel = default);
+        Task<bool> ExistId(Guid Id, CancellationToken Cancel = default);
 
         //Проверяет есть ли целиком сущность(Проверяет равенство двух сущностей по равенсту их ID)
         Task<bool> Exist(T item, CancellationToken Cancel = default);
@@ -22,7 +22,7 @@
         Task<IPage<T>> GetPage(int PageIndex, int PageSize, CancellationToken Cancel = default);
 
         //Найти сущность по Id(Возвращает null, если объект не найден)
-        Task<T> GetById(int Id, CancellationToken Cancel = default);
+        Task<T> GetById(Guid Id, CancellationToken Cancel = default);
 
         //Добавить объект в репозиторий
         Task<T> Add(T item, CancellationToken Cancel = default);
@@ -37,7 +37,7 @@
 
         //Удаление сущности из репозитория по Id
         //(Будет возвращена сущность, которая хранилась в репозитори) / null
-        Task<T> DeleteById(int Id, CancellationToken Cancel = default);
+        Task<T> DeleteById(Guid Id, CancellationToken Cancel = default);
 
 
     }
