@@ -9,7 +9,7 @@ namespace PaintyTestTask.Data.Repositories
         private readonly ApplicationDbContext _db;
         protected DbSet<T> Set { get; }
         protected virtual IQueryable<T> Items => Set;
-        public bool AutoSaveChanges { get; set; }
+        public bool AutoSaveChanges { get; set; } = true;
 
         public Repository(ApplicationDbContext db)
         {
@@ -106,6 +106,8 @@ namespace PaintyTestTask.Data.Repositories
             var total_count = await query.CountAsync().ConfigureAwait(false);
             if (total_count == 0)
                 return new Page(Enumerable.Empty<T>(), 0, PageIndex, PageSize);
+            if (query is not IOrderedQueryable<T>)
+                query = query.OrderBy(item => item.Id);
 
             if (PageIndex > 0)
                 query = query.Skip(PageIndex * PageSize);

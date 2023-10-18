@@ -11,17 +11,14 @@ namespace PaintyTestTask.API
 {
     public class Program
     {
-        private readonly DataDbInitializer _db;
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                opt => opt.UseSqlServer(
-                    builder.Configuration.GetConnectionString("MSSQL"),
-                    o => o.MigrationsAssembly("PaintyTestTask"))
-                );
+            var connectionString = builder.Configuration.GetConnectionString("MSSQL");
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString));
             builder.Services.AddTransient<DataDbInitializer>();
             
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

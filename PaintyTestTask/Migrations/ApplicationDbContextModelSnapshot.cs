@@ -39,7 +39,7 @@ namespace PaintyTestTask.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Pictures");
+                    b.ToTable("Pictures", (string)null);
                 });
 
             modelBuilder.Entity("PaintyTestTask.Entities.User", b =>
@@ -65,7 +65,7 @@ namespace PaintyTestTask.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("PaintyTestTask.Entities.Picture", b =>
