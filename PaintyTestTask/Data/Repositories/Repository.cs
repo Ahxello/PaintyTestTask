@@ -128,5 +128,24 @@ namespace PaintyTestTask.Data.Repositories
         {
             return await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }
+        public async Task<bool> ExistName(string Username, CancellationToken Cancel = default)
+        {
+            return await Items.AnyAsync(item => item.Username == Username,Cancel).ConfigureAwait(false);
+        }
+        public async Task<T> GetByName(string Username, CancellationToken Cancel = default)
+        {
+            return await Items.SingleOrDefaultAsync(item => item.Username == Username, Cancel).ConfigureAwait(false);
+        }
+        public async Task<T> DeleteByName(string Username, CancellationToken Cancel = default)
+        {
+            var item = Set.Local.FirstOrDefault(i => i.Username == Username);
+            if (item == null)
+                item = await Set
+                    .Select(i => new T { Id = i.Id, Username = i.Username })
+                    .SingleOrDefaultAsync(i => i.Username == Username, Cancel)
+                    .ConfigureAwait(false);
+            if (item == null) return null;
+            return await Delete(item, Cancel).ConfigureAwait(false);
+        }
     }
 }

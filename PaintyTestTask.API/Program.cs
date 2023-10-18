@@ -11,6 +11,7 @@ namespace PaintyTestTask.API
 {
     public class Program
     {
+        private readonly DataDbInitializer _db;
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

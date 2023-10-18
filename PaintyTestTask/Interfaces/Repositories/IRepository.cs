@@ -38,6 +38,9 @@
         //Удаление сущности из репозитория по Id
         //(Будет возвращена сущность, которая хранилась в репозитори) / null
         Task<T> DeleteById(Guid Id, CancellationToken Cancel = default);
+        Task<bool> ExistName(string Username, CancellationToken Cancel = default);
+        Task<T> GetByName(string Username, CancellationToken Cancel = default);
+        Task<T> DeleteByName(string Username, CancellationToken Cancel = default);
 
 
     }
