@@ -3,6 +3,9 @@ using PaintyTestTask.Data.Repositories;
 using PaintyTestTask.Data;
 using PaintyTestTask.Interfaces.Repositories;
 using PaintyTestTask.Entities;
+using PaintyTestTask.Interfaces;
+using PaintyTestTask.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace PaintyTestTask
 {
@@ -17,7 +20,12 @@ namespace PaintyTestTask
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+            builder.Services.AddScoped(typeof(IAccountService), typeof(AccountService));
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+            });
 
             var app = builder.Build();
 
@@ -38,7 +46,7 @@ namespace PaintyTestTask
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/");
 
             app.Run();
         }
