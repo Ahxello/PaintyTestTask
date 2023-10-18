@@ -7,6 +7,14 @@
         public Guid UserId { get; set;  }
         public User Friend { get; set; }
         public Guid FriendId { get; set; }
+        public FriendshipStatus Status { get; set; }
+
+    }
+    public enum FriendshipStatus
+    {
+        Pending,
+        Accepted,
+        Rejected
     }
 
 }

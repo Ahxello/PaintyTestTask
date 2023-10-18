@@ -76,7 +76,7 @@ namespace PaintyTestTask.Data.Repositories
 
         public async Task<IEnumerable<T>> GetAll(CancellationToken Cancel = default)
         {
-            return await Items.ToArrayAsync(Cancel).ConfigureAwait(false);
+            return await Items.ToListAsync(Cancel).ConfigureAwait(false);
         }
 
         public async Task<T> GetById(Guid Id, CancellationToken Cancel = default)

@@ -1,0 +1,8 @@
+﻿@using PaintyTestTask.Entities;
+@model IEnumerable<User>;
+@foreach (var obj in Model)
+{
+    <div class="newsblock">
+            <a>Name: @obj.Name  Username: @obj.Username</a>
+    </div>
+}

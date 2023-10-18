@@ -21,6 +21,7 @@ namespace PaintyTestTask
             options.UseSqlServer(connectionString));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped(typeof(IAccountService), typeof(AccountService));
+            builder.Services.AddScoped(typeof(IFriendshipService), typeof(FriendshipService));
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");

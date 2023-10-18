@@ -21,18 +21,6 @@
                     </a>
                     <div class="navbar-wrap">
                         <ul class="navbar-menu">
-                            <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
-                            </li>
                             <li class="login-navbar"><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
                             <li class="register-navbar"><a asp-area="" asp-controller="Account" asp-action="Register">SIGN UP</a></li>
                         </ul>
@@ -56,16 +44,16 @@
                     <div class="navbar-wrap">
                         <ul class="navbar-menu">
                             <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">Главная</a>
+                                <a asp-area="" asp-controller="Profile" asp-action="Index">Профиль</a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
+                                <a asp-area="" asp-controller="Friends" asp-action="Index">Поиск Друзей</a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
+                                <a asp-area="" asp-controller="Pictures" asp-action="Index">Мои Фотографии</a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="News" asp-action="Index">News</a>
+                                <a asp-area="" asp-controller="Pictures" asp-action="Index">Загрузить Фотографию</a>
                             </li>
 
                             <li class="profile"><a>@User.Identity.Name</a></li>

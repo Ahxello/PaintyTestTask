@@ -1,4 +1,6 @@
-﻿namespace PaintyTestTask.Interfaces.Repositories
+﻿using PaintyTestTask.Entities;
+
+namespace PaintyTestTask.Interfaces.Repositories
 {
     public interface IRepository<T> where T : IEntity
     {
